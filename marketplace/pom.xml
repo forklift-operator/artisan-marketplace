@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>bg.fmi.web</groupId>
-	<artifactId>digital-library</artifactId>
+	<artifactId>marketplace</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
