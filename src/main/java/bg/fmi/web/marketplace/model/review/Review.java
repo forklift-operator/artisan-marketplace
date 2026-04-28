@@ -1,6 +1,7 @@
 package bg.fmi.web.marketplace.model.review;
 
 import bg.fmi.web.marketplace.model.product.Product;
+import bg.fmi.web.marketplace.model.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,4 +23,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
