@@ -1,7 +1,7 @@
 package bg.fmi.web.marketplace.controller;
 
-import bg.fmi.web.marketplace.dto.RegisterUserDto;
 import bg.fmi.web.marketplace.dto.UserRegisterDto;
+import bg.fmi.web.marketplace.dto.UserLoginDto;
 import bg.fmi.web.marketplace.dto.UserResponseDto;
 import bg.fmi.web.marketplace.model.user.User;
 import bg.fmi.web.marketplace.service.UserService;
@@ -53,5 +53,25 @@ public class UserController {
         );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponseDto> login(@RequestBody @Validated UserLoginDto dto) {
+
+        User userRequest = new User();
+        userRequest.setEmail(dto.getEmail());
+        userRequest.setPassword(dto.getPassword());
+
+        User loggedUser = userService.login(userRequest);
+
+        UserResponseDto userResponse = new UserResponseDto();
+        userResponse.setId(loggedUser.getId());
+        userResponse.setEmail(loggedUser.getEmail());
+        userResponse.setFirstName(loggedUser.getFirstName());
+        userResponse.setLastName(loggedUser.getLastName());
+        userResponse.setRole(loggedUser.getRole());
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponse);
+
     }
 }
