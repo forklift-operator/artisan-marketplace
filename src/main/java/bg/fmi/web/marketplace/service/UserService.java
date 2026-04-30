@@ -18,13 +18,25 @@ public class UserService {
     }
 
     public User register(User user) {
-        List<User> foundUser = userRepository.findByEmail(user.getEmail());
-        if (!foundUser.isEmpty()) throw new RuntimeException("User with this email already exists");
+        User foundUser = userRepository.findByEmail(user.getEmail());
+        if (foundUser != null) throw new RuntimeException("User with this email already exists");
 //        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User login(User userRequest) {
+        User foundUser = userRepository.findByEmail(userRequest.getEmail());
+
+        if (foundUser == null) throw new RuntimeException("User with this email not found");
+
+        if (foundUser.getPassword().equals(userRequest.getPassword())) {
+            return foundUser;
+        } else {
+            throw new RuntimeException("Incorrect password");
+        }
     }
 }
